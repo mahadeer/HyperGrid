@@ -1,0 +1,30 @@
+{
+  "name": "hypergrid",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A high-performance, interactive data grid web component inspired by spreadsheet applications like Excel. It's developed with Lit for the web component wrapper, Canvas for efficient visual rendering, and Rust compiled to WebAssembly for optimizing complex calculations and data manipulations.",
+  "keywords": [],
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "src/hyper-grid.js",
+  "module": "src/hyper-grid.js",
+  "scripts": {
+    "dev": "bun --hot run server",
+    "build:lit": "bun build src/hyper-grid.ts --outdir ./dist --target browser --format esm",
+    "build:lit:prod": "bun build src/hyper-grid.ts --outdir ./dist --target browser --format esm --minify --sourcemap",
+    "build:wasm": "cd rust-wasm && wasm-pack build --target web --out-dir ../dist/wasm",
+    "build": "bun run build:lit",
+    "build:prod": "bun run build:lit:prod && bun run build:wasm",
+    "start": "bun run build && bun --hot run server"
+  },
+  "dependencies": {
+    "lit": "^3.3.1"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.8.3"
+  }
+}

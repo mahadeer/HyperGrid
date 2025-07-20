@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "target": "ES2022", // Target modern JavaScript
+    "module": "ESNext", // Use ES Modules
+    "moduleResolution": "bundler", // Modern module resolution strategy
+    "strict": true, // Enable all strict type-checking options
+    "esModuleInterop": true, // Allow default imports from modules with no default export
+    "skipLibCheck": true, // Skip type checking of declaration files
+    "forceConsistentCasingInFileNames": true, // Ensure consistent file casing
+    "outDir": "./dist", // Output directory for compiled JavaScript
+    "declaration": true, // Generate declaration files (.d.ts)
+    "sourceMap": true, // Generate source maps
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ], // Include standard libraries
+    "experimentalDecorators": true, // Enable experimental support for decorators
+    "useDefineForClassFields": false // Required for Lit decorators
+  },
+  "include": [
+    "src/**/*.ts"
+  ], // Include all TypeScript files in src
+  "exclude": [
+    "node_modules",
+    "dist"
+  ] // Exclude these directories
+}
