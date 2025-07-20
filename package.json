@@ -10,19 +10,21 @@
   "main": "src/hyper-grid.js",
   "module": "src/hyper-grid.js",
   "scripts": {
-    "dev": "bun --hot run server",
-    "build:lit": "bun build src/hyper-grid.ts --outdir ./dist --target browser --format esm",
+    "dev": "bun run server",
+    "build:lit": "bun build --watch src/hyper-grid.ts --outdir ./dist --target browser --format esm",
     "build:lit:prod": "bun build src/hyper-grid.ts --outdir ./dist --target browser --format esm --minify --sourcemap",
-    "build:wasm": "cd rust-wasm && wasm-pack build --target web --out-dir ../dist/wasm",
-    "build": "bun run build:lit",
+    "build:wasm": "cd grid_core && wasm-pack build --target web --out-dir ../dist/wasm",
+    "build": "bun run build:lit && bun run build:wasm",
     "build:prod": "bun run build:lit:prod && bun run build:wasm",
-    "start": "bun run build && bun --hot run server"
+    "start": "concurrently \"bun run build\" \"bun run dev\"",
+    "watch": "bun server/watch.ts"
   },
   "dependencies": {
     "lit": "^3.3.1"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "concurrently": "^9.2.0"
   },
   "peerDependencies": {
     "typescript": "^5.8.3"

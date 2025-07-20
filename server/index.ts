@@ -1,24 +1,18 @@
 import { serve } from "bun";
-import { join } from "path";
-import { existsSync, readFileSync } from "fs";
+import { existsSync } from "fs";
+import { PORT, PUBLIC_FOLDER } from './config';
+import { getCurrentDir } from './utils';
 
-console.log("Bun server starting...");
-
-const getCurrentDir = (strings: TemplateStringsArray, ...values: any[]) => {
-  const filePath = strings.reduce((result, string, i) => {
-    return result + string + (values[i] || '');
-  }, '');
-  return join(process.cwd(), filePath);
-};
+console.log("Playground server starting...");
 
 serve({
-  port: 3000,
+  port: PORT,
   async fetch(request) {
     const url = new URL(request.url);
-    let filePath = getCurrentDir`/playground/${url.pathname}`;
+    let filePath = getCurrentDir`/${PUBLIC_FOLDER}/${url.pathname}`;
     // If the path is just '/', serve index.html
     if (url.pathname === '/') {
-      filePath = getCurrentDir`playground/index.html`;
+      filePath = getCurrentDir`${PUBLIC_FOLDER}/index.html`;
     } else if (url.pathname.startsWith('/dist/')) {
       // Serve files from the dist directory
       filePath = getCurrentDir`${url.pathname}`;
@@ -33,4 +27,4 @@ serve({
   },
 });
 
-console.log("Bun server listening on http://localhost:3000");
+console.log(`Playground server listening on http://localhost:${PORT}`);
